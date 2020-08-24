@@ -24,5 +24,7 @@ are recognized:
 
   shortfile: Include the filename and line number in all log messages.
   Overrides longfile.
+
+  UTC: Report timestamps in UTC instead of the local time zone.
 */
 package slog

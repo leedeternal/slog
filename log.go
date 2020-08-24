@@ -60,6 +60,10 @@ const (
 	// Lshortfile modifies the logger output to include filename and line number
 	// of the logging callsite, e.g. main.go:123.  Overrides Llongfile.
 	Lshortfile
+
+	// LUTC modifies the logger output to report all times in UTC instead of
+	// in the local time zone.
+	LUTC
 )
 
 // Read logger flags from the LOGFLAGS environment variable.  Multiple flags can
@@ -71,6 +75,8 @@ func init() {
 			defaultFlags |= Llongfile
 		case "shortfile":
 			defaultFlags |= Lshortfile
+		case "UTC":
+			defaultFlags |= LUTC
 		}
 	}
 }
@@ -265,6 +271,9 @@ func callsite(flag uint32) (string, int) {
 // rules.
 func (b *Backend) print(lvl, tag string, args ...interface{}) {
 	t := time.Now() // get as early as possible
+	if b.flag&LUTC != 0 {
+		t = t.UTC()
+	}
 
 	bytebuf := buffer()
 
@@ -292,6 +301,9 @@ func (b *Backend) print(lvl, tag string, args ...interface{}) {
 // specifier.
 func (b *Backend) printf(lvl, tag string, format string, args ...interface{}) {
 	t := time.Now() // get as early as possible
+	if b.flag&LUTC != 0 {
+		t = t.UTC()
+	}
 
 	bytebuf := buffer()
 
