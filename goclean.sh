@@ -1,7 +1,7 @@
 #!/bin/bash
 # The script does automatic checking on a Go package and its sub-packages, including:
 # 1. gofmt         (https://golang.org/cmd/gofmt/)
-# 2. golint        (https://github.com/golang/lint)
+# 2. revive        (https://github.com/mgechev/revive)
 # 3. go vet        (https://golang.org/cmd/vet)
 # 4. gosimple      (https://github.com/dominikh/go-simple)
 # 5. unconvert     (https://github.com/mdempsky/unconvert)
@@ -20,7 +20,7 @@ env GORACE="halt_on_error=1" go test -race ./...
 # check linters
 golangci-lint run --disable-all --deadline=10m \
   --enable=gofmt \
-  --enable=golint \
+  --enable=revive \
   --enable=vet \
   --enable=gosimple \
   --enable=unconvert \

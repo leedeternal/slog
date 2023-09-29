@@ -6,18 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [1.15, 1.16]
+        go: ["1.20", "1.21"]
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe #4.1.0
         with:
           go-version: ${{ matrix.go }}
       - name: Check out source
-        uses: actions/checkout@v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 #v4.1.0
       - name: Install Linters
-        run: "curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.37.0"
+        run: "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2"
       - name: Test
-        env:
-          GO111MODULE: "on"
         run: |
-          sh ./goclean.sh
+          ./goclean.sh

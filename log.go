@@ -1,5 +1,5 @@
 // Copyright (c) 2017 The btcsuite developers
-// Copyright (c) 2018 The Decred developers
+// Copyright (c) 2018-2023 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 //
@@ -37,7 +37,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"runtime"
 	"strings"
@@ -507,5 +506,5 @@ func (l *slog) SetLevel(level Level) {
 var Disabled Logger
 
 func init() {
-	Disabled = &slog{lvl: LevelOff, b: NewBackend(ioutil.Discard)}
+	Disabled = &slog{lvl: LevelOff, b: NewBackend(io.Discard)}
 }
